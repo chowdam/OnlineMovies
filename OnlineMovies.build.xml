@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="14.0"
+          DefaultTargets="Compile">
+<!--Run this command in msbuild cmd promt 
+C:\MyCodeProjects\CLSMovies\OnlineMovies> msbuild onlinemovies.build.xml /target:Compile
+
+web server is  in : C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0 
+
+-->
+  <UsingTask AssemblyFile=".\thirdparty\tools\MSBuildAsyncExec\AsyncExec.dll" TaskName="AsyncExec.AsyncExec"/>
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+  </PropertyGroup>
+
+  <ItemGroup>    
+    <BuildArtifacts Include=".\buildartifacts\"/>
+    <SolutionFile Include=".\OnlineMovies.sln"/>
+    <Cassini Include="$(CommonProgramFiles)\Microsoft Shared\DevServer\10.0\WebDev.WebServer40.exe"/>
+    <Website Include=".\buildartifacts\_PublishedWebsites\OnlineMovies.Web"/>
+  </ItemGroup>
+
+  <Target Name="Clean">
+    <RemoveDir Directories="@(BuildArtifacts)"/>
+  </Target>
+
+  <Target Name="Init" DependsOnTargets="Clean">
+    <MakeDir Directories="@(BuildArtifacts)"/>
+  </Target>
+
+  <Target Name="Compile" DependsOnTargets="Init">
+    <MSBuild Projects="@(SolutionFile)" Targets="Rebuild" 
+             Properties="OutDir=%(BuildArtifacts.FullPath);Configuration=$(Configuration)"/>
+  </Target>
+
+   <Target Name="StartWebsite" DependsOnTargets="StopWebsite;Compile">
+      <AsyncExec Command='"@(Cassini)" /port:9999 /path:"%(Website.FullPath)" /vpath:'/>
+    </Target>
+
+    <Target Name="StopWebsite">
+      <Exec Command="taskkill /f /im WebDev.WebServer40.exe" IgnoreExitCode="true" IgnoreStandardErrorWarningFormat="true"/>
+    </Target>
+  
+</Project>
