@@ -1,28 +1,27 @@
-namespace OnlineMovies.Web
+namespace OnlineMovies.BL
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
-
-    public partial class Movie
+    public partial class Movie_Reviews
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string ReviewerName { get; set; }
 
         [StringLength(200)]
-        public string Description { get; set; }
+        public string MovieReview { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReviewDate { get; set; }
 
-        public int Rating { get; set; }
+        public int MovieId { get; set; }
 
-        public bool IsReleased { get; set; }
+        public virtual Movie Movie { get; set; }
     }
 }

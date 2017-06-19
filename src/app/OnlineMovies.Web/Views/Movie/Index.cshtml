@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Movies Home ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@section InlineScripts{
+<script src="~/Scripts/Movies/MoviesHomeCtrl.js"></script>
+}
+
+
+<div class="container" ng-controller="MoviesHomeCtrl">
+    <div class="row">
+        <div class="span10">
+            <table class="table table-condensed table-hover">
+                <tr>
+                    <th>
+                       Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                       ReleaseDate
+                    </th>
+                    <th>
+                       Rating
+                    </th>
+                    <th>
+                       IsReleased
+                    </th>
+                    <th></th>
+                </tr>
+                
+                    <tr ng-repeat="movie in moviesList">
+                        <td>
+                            {{ movie.Name}}
+                        </td>
+                        <td>
+                            {{movie.Description}}
+                        </td>
+                        <td>
+                            {{movie.ReleaseDate}}
+                        </td>
+                        <td>
+                            {{movie.Rating}}
+                        </td>
+                        <td>
+                            {{movie.IsReleased}}
+                        </td>
+                       
+                    </tr>
+                
+            </table>
+
+        </div>
+    </div>
+</div>
+
+

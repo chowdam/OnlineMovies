@@ -217,14 +217,14 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="MovieEntities.cs" />
+    <Compile Include="Models\MoviesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Movies.mdf" />
-    <Content Include="App_Data\Movies_log.ldf">
-      <DependentUpon>Movies.mdf</DependentUpon>
+    <Content Include="App_Data\MoviesDB.mdf" />
+    <Content Include="App_Data\MoviesDB_log.ldf">
+      <DependentUpon>MoviesDB.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -307,9 +307,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Movie\Index.cshtml" />
+    <Content Include="Views\Movie\ShowMore.cshtml" />
+    <Content Include="Views\Movie\Create.cshtml" />
+    <Content Include="Views\Movie\Edit.cshtml" />
+    <Content Include="Views\Movie\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Movie\" />
+    <Folder Include="Views\JsonData\" />
+    <Folder Include="Views\Movie\App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

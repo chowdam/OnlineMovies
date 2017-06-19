@@ -1,9 +1,14 @@
-﻿(function () {
+﻿//(function () {
 
-    var app = angular.module("MoviesApp", []);
+//    var app = angular.module("MoviesApp", []);
 
-    app.controller("MoviesHomeCtrl", function ($scope) {
-        $scope.Message = "Guest!"
+//    app.controller("HomeCtrl", function ($scope) {
+//        $scope.Message = "Guest!";
+//    });
+
+//})();
+
+var moviesAppModule = angular.module("moviesAppModule", []);
+moviesAppModule.controller("HomeCtrl", function ($scope) {
+        $scope.Message = "Guest!";
     });
-
-})();
