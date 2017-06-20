@@ -24,6 +24,11 @@ namespace OnlineMovies.Web
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "Movie", action = "Index", id = UrlParameter.Optional }
            );
+            routes.MapRoute(
+                name: "MovieReviews",
+                url: "{controller}/{id}",
+                defaults: new { controller = "MovieReviews", action = "Index", id = "" }
+            );
         }
     }
 }

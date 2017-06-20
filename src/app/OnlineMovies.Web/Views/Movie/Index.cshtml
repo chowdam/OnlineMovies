@@ -35,6 +35,8 @@
                        IsReleased
                     </th>
                     <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 
                     <tr ng-repeat="movie in moviesList">
@@ -53,7 +55,11 @@
                         <td>
                             {{movie.IsReleased}}
                         </td>
-                       
+                        <td>
+                            <a href="@Url.Action("Details","Movie")?id={{ movie.Id}}">Details</a> | 
+                            <a href="@Url.Action("Edit","Movie")?id={{ movie.Id}}">Edit</a> |
+                            <a href="@Url.Action("Delete","Movie")?id={{ movie.Id}}">Delete</a>
+                        </td>
                     </tr>
                 
             </table>

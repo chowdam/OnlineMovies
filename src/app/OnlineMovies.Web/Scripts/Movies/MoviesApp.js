@@ -8,7 +8,13 @@
 
 //})();
 
-var moviesAppModule = angular.module("moviesAppModule", []);
+var moviesAppModule;
+
+(function () {
+    moviesAppModule = angular.module("moviesAppModule", []);
+})();
+
+
 moviesAppModule.controller("HomeCtrl", function ($scope) {
         $scope.Message = "Guest!";
     });

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -40,6 +41,19 @@ namespace OnlineMovies.Web.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        public JsonResult GetMovieReviewsByMovieId(int Id)
+        {
+            List<Movie_Reviews> reviews = unitOfWork.MovieReviewsRepository.Get().ToList();
+            var movieReviews = from r in reviews
+                               where r.MovieId == Id
+                               select r;
+
+            return new JsonResult
+            {
+                Data = movieReviews,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
 
         // GET: Movie/Details/5
         public ActionResult Details(int? id)
@@ -48,8 +62,9 @@ namespace OnlineMovies.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = unitOfWork.MovieRepository.GetByID(id);
 
+            Movie movie = unitOfWork.MovieRepository.GetByID(id);
+            @ViewBag.movie = movie.Name;
             if (movie == null)
             {
                 return HttpNotFound();
@@ -61,6 +76,7 @@ namespace OnlineMovies.Web.Controllers
         }
 
         // GET: Movie/Create
+        [Authorize]
         public ActionResult Create()
         {
 
@@ -84,7 +100,7 @@ namespace OnlineMovies.Web.Controllers
                     // movie.Id = Convert.ToInt32(Request.Form["Id"]);
                     movie.Name = Request.Form["Name"];
                     movie.Description = Request.Form["Description"];
-                    DateTime dtReleased = Convert.ToDateTime(Request.Form["ReleaseDate"]);
+                    DateTime dtReleased = DateTime.ParseExact(Request.Form["ReleaseDate"], "mm/dd/yyyy", CultureInfo.InvariantCulture);
                     movie.ReleaseDate = dtReleased;
                     movie.Rating = Convert.ToInt32(Request.Form["Rating"]);
                     movie.IsReleased = dtReleased < DateTime.Today ? true : false;
@@ -105,6 +121,7 @@ namespace OnlineMovies.Web.Controllers
         }
 
         // GET: Movie/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             Movie movie = unitOfWork.MovieRepository.GetByID(id);
@@ -150,6 +167,7 @@ namespace OnlineMovies.Web.Controllers
         }
 
         // GET: Movie/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             Movie movie = unitOfWork.MovieRepository.GetByID(id);
